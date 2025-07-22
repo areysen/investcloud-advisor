@@ -1,0 +1,28 @@
+{
+  "mcpServers": {
+    "Figma-5j6xeh": {
+      "command": "npx",
+      "args": [
+        "@composio/mcp@latest",
+        "start",
+        "--url",
+        "https://mcp.composio.dev/composio/server/025354ea-ae60-4c24-aea3-a33ff1fa6605/mcp?include_composio_helper_actions=true"
+      ],
+      "env": {
+        "npm_config_yes": "true"
+      }
+    },
+    "Figma-f0aowr": {
+      "command": "npx",
+      "args": [
+        "@composio/mcp@latest",
+        "start",
+        "--url",
+        "https://mcp.composio.dev/composio/server/df8d7051-bd34-4b78-9b86-21ffd0129d9c/mcp?include_composio_helper_actions=true"
+      ],
+      "env": {
+        "npm_config_yes": "true"
+      }
+    }
+  }
+}

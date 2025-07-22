@@ -1,0 +1,57 @@
+.kpi-widget {
+  @apply text-white;
+  
+  .kpi-content {
+    .kpi-label {
+      @apply text-sm font-normal mb-2;
+      font-family: 'Red Hat Text', sans-serif;
+      opacity: 0.9;
+    }
+    
+    .kpi-value-container {
+      @apply flex items-baseline gap-3 mb-1;
+      
+      .kpi-value {
+        font-family: 'Red Hat Text', sans-serif;
+        font-size: 32px;
+        font-weight: 500;
+        line-height: 1;
+      }
+      
+      .kpi-change {
+        @apply text-sm font-medium;
+        font-family: 'Red Hat Text', sans-serif;
+        
+        &.positive {
+          color: #4ADE80; // Green
+        }
+        
+        &.negative {
+          color: #EF4444; // Red
+        }
+      }
+    }
+    
+    .kpi-sub-label {
+      @apply text-xs;
+      font-family: 'Red Hat Text', sans-serif;
+      opacity: 0.8;
+    }
+  }
+  
+  // Large variant (for Total AUM)
+  &.large {
+    .kpi-value {
+      font-size: 48px;
+      font-weight: 500;
+    }
+  }
+  
+  // Small variant (for other metrics)
+  &.small {
+    .kpi-value {
+      font-size: 32px;
+      font-weight: 500;
+    }
+  }
+}

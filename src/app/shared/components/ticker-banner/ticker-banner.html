@@ -1,0 +1,16 @@
+<div class="ticker-banner">
+  <div class="ticker-content">
+    <div class="ticker-track">
+      <div class="ticker-item" *ngFor="let item of displayItems">
+        <span class="ticker-symbol">{{ item.symbol }}</span>
+        <span class="ticker-value">{{ formatValue(item.value) }}</span>
+        <span class="ticker-change" [ngClass]="getChangeClass(item.change)">
+          {{ formatChange(item.change) }}
+        </span>
+        <span class="ticker-percent" [ngClass]="getChangeClass(item.change)">
+          {{ formatPercent(item.changePercent) }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<div hlmCard class="h-full flex flex-col">
+  <div hlmCardHeader>
+    <h3 hlmCardTitle>Alerts</h3>
+    <button
+      hlmBtn
+      variant="ghost"
+      size="icon"
+      class="p-2 text-neutral-700 hover:text-neutral-900"
+      (click)="onBellClick()"
+      aria-label="View all alerts"
+    >
+      <ng-icon name="lucideBell" size="20"></ng-icon>
+    </button>
+  </div>
+
+  <div hlmCardContent class="flex flex-col flex-1 px-0 pb-0 overflow-hidden">
+    <div class="flex-1 overflow-y-auto">
+      <div
+        class="flex items-center justify-between px-6 py-3 border-b border-neutral-100 last:border-b-0"
+        *ngFor="let alert of alerts"
+      >
+        <a
+          href="#"
+          class="flex-1 pr-4 transition-colors no-underline hover:text-primary-hover focus:outline-none focus:text-primary-hover"
+        >
+          {{ alert.message }}
+        </a>
+        <span>
+          {{ alert.date }}
+        </span>
+      </div>
+    </div>
+
+    <div class="flex justify-center px-6 py-4">
+      <button hlmBtn variant="outline" (click)="onViewAll()">VIEW ALL</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,91 @@
+// Spartan Card Component Overrides
+
+/* Base Card */
+[hlmCard] {
+  @apply bg-white rounded-lg shadow-sm py-0 gap-0 flex flex-col w-full;
+  border: none;
+  height: 100%; /* Ensure card fills parent height */
+}
+
+/* Card Header */
+[hlmCardHeader] {
+  @apply flex items-center justify-between min-h-[64px];
+}
+
+/* Card Header Variant: Clickable Title */
+[hlmCardHeader].card-header-clickable {
+  .card-title-link {
+    @apply flex items-center gap-2 no-underline cursor-pointer;
+    
+    [hlmCardTitle] {
+      @apply transition-colors text-neutral-900;
+    }
+    
+    .chevron-icon {
+      @apply text-neutral-500 transition-transform;
+    }
+    
+    &:hover {
+      [hlmCardTitle] {
+        @apply text-primary;
+      }
+      
+      .chevron-icon {
+        @apply text-primary transform translate-x-0.5;
+      }
+    }
+  }
+}
+
+/* Card Title */
+[hlmCardTitle] {
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Red Hat Text', sans-serif;
+}
+
+/* Card Content */
+[hlmCardContent] {
+  @apply px-0 flex-1 flex flex-col;
+}
+
+/* Card Variant: Gradient */
+[hlmCard].card-gradient {
+  background: linear-gradient(78deg, #C63663 64.05%, #F19C4A 98.38%);
+  
+  /* Override text colors for better contrast on gradient */
+  [hlmCardTitle] {
+    @apply text-white;
+  }
+  
+  /* Ensure all text in gradient cards is white */
+  * {
+    @apply text-white;
+  }
+  
+  /* Button overrides for gradient cards */
+  [hlmBtn] {
+    @apply text-white border-white;
+    
+    &[variant="outline"] {
+      @apply bg-transparent border-white text-white;
+      
+      &:hover {
+        @apply bg-white/10 border-white text-white;
+      }
+      
+      &:focus {
+        @apply border-white text-white;
+      }
+    }
+    
+    &[variant="default"],
+    &[variant="secondary"] {
+      @apply bg-white text-primary border-white;
+      
+      &:hover {
+        @apply bg-white/90 text-primary;
+      }
+    }
+  }
+}

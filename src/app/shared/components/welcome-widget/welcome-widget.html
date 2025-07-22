@@ -1,0 +1,21 @@
+<div class="welcome-widget">
+  <div class="welcome-content">
+    <div class="welcome-text">
+      <h1 class="welcome-title">Welcome, {{ userName }}</h1>
+      <p class="welcome-subtitle">Last Logged in {{ lastLoginDate }}</p>
+    </div>
+    
+    <!-- Search bar -->
+    <div class="search-container">
+      <input 
+        hlmInput
+        type="text" 
+        placeholder="Search clients..." 
+        class="search-input"
+        [(ngModel)]="searchQuery"
+        (ngModelChange)="onSearchChange()"
+      />
+      <ng-icon name="lucideSearch" class="search-icon" size="16"></ng-icon>
+    </div>
+  </div>
+</div>

@@ -1,1 +1,338 @@
-/* You can add global styles to this file, and also import other style files */
+@use "sass:meta";
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+/* Import Material Icons */
+@import 'material-icons/iconfont/material-icons.css';
+
+/* Import Font Awesome */
+@import '@fortawesome/fontawesome-free/css/all.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import component overrides - AFTER Tailwind utilities */
+@include meta.load-css('app/shared/styles/tabs-overrides');
+@include meta.load-css('app/shared/styles/card-overrides');
+@include meta.load-css('app/shared/styles/button-overrides');
+@include meta.load-css('app/shared/styles/checkbox-overrides');
+
+
+/* Global Styles */
+@layer base {
+  html, body {
+    @apply h-full;
+  }
+  
+  body {
+    @apply m-0 font-red-hat text-base text-neutral-900 bg-neutral-100 font-medium;
+  }
+  
+  /* Reset list styles */
+  ul, ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Typography defaults */
+  h1 {
+    @apply text-4xl font-semibold;
+  }
+  
+  h2 {
+    @apply text-3xl font-semibold;
+  }
+  
+  h3 {
+    @apply text-2xl font-medium;
+  }
+  
+  h4 {
+    @apply text-xl font-medium;
+  }
+  
+  h5 {
+    @apply text-lg font-medium;
+  }
+  
+  h6 {
+    @apply text-base font-medium;
+  }
+  
+  /* Link styles */
+  a {
+    @apply text-primary transition-colors;
+    text-decoration: none;
+    
+    &:hover {
+      @apply text-primary-hover;
+    }
+    
+    &:active {
+      @apply text-primary-dark;
+    }
+    
+    &:focus {
+      @apply outline-none ring-2 ring-primary ring-offset-2;
+    }
+    
+    &:visited {
+      @apply text-primary;
+    }
+  }
+}
+
+/* Component utilities */
+@layer components {
+  /* Container styles for responsive max-width */
+  .container-responsive {
+    @apply w-full mx-auto px-4;
+    
+    /* Mobile: edge to edge (with small padding) */
+    @media (max-width: 767px) {
+      @apply px-4;
+    }
+    
+    /* Tablet: 95vw */
+    @media (min-width: 768px) and (max-width: 1439px) {
+      max-width: 95vw;
+    }
+    
+    /* Desktop: max 1440px */
+    @media (min-width: 1440px) {
+      max-width: 1440px;
+    }
+  }
+  
+  /* Typography utilities based on design system */
+  // Headings
+  .text-h1 {
+    @apply font-red-hat text-8xl font-bold; // 38px bold
+  }
+  
+  .text-h2 {
+    @apply font-red-hat text-6xl font-semibold; // 32px semibold
+  }
+  
+  .text-h3 {
+    @apply font-red-hat text-4xl font-semibold; // 28px semibold
+  }
+  
+  .text-h4 {
+    @apply font-red-hat text-3xl font-semibold; // 24px semibold
+  }
+  
+  .text-h5 {
+    @apply font-red-hat text-2xl font-medium; // 20px medium
+  }
+  
+  .text-h6 {
+    @apply font-red-hat text-xl font-medium; // 18px medium
+  }
+  
+  // Body text
+  .text-body-lg {
+    @apply font-red-hat text-lg font-medium; // 16px medium
+  }
+  
+  .text-body {
+    @apply font-red-hat text-base font-medium; // 14px medium
+  }
+  
+  .text-body-sm {
+    @apply font-red-hat text-sm font-medium; // 13px medium
+  }
+  
+  .text-body-xs {
+    @apply font-red-hat text-xs font-medium; // 12px medium
+  }
+  
+  // Labels and UI text
+  .text-label-lg {
+    @apply font-red-hat text-lg font-semibold; // 16px semibold
+  }
+  
+  .text-label {
+    @apply font-red-hat text-base font-semibold; // 14px semibold
+  }
+  
+  .text-label-sm {
+    @apply font-red-hat text-sm font-semibold; // 13px semibold
+  }
+  
+  .text-label-xs {
+    @apply font-red-hat text-xs font-semibold; // 12px semibold
+  }
+  
+  // Button text (uppercase)
+  .text-button {
+    @apply font-red-hat text-xs font-medium uppercase tracking-wide; // 12px medium uppercase
+  }
+  
+  // Caption and helper text
+  .text-caption {
+    @apply font-red-hat text-xs font-normal; // 12px regular
+  }
+  
+  // Regular weight variants (when needed)
+  .text-regular {
+    @apply font-normal; // 400 weight
+  }
+  
+  // Data values (for KPIs, metrics)
+  .text-data-xl {
+    @apply font-red-hat text-6xl font-medium; // 32px medium
+  }
+  
+  .text-data-lg {
+    @apply font-helvetica text-7xl font-medium; // 34px medium Helvetica
+  }
+  
+  .text-data {
+    @apply font-red-hat text-xl font-medium; // 18px medium
+  }
+  
+  // Display text (for very large numbers)
+  .text-display-lg {
+    @apply font-inter text-9xl font-semibold; // 42px semibold Inter
+  }
+  
+  .text-display-xl {
+    @apply font-helvetica text-10xl font-medium; // 60px medium Helvetica
+  }
+  
+  /* Card styles */
+  .card {
+    @apply bg-white rounded-lg shadow-sm;
+  }
+  
+  /* Link utilities */
+  .link-primary {
+    @apply text-primary hover:text-primary-hover active:text-primary-dark transition-colors;
+  }
+  
+  .link-secondary {
+    @apply text-secondary hover:text-secondary-dark active:text-secondary-dark transition-colors;
+  }
+  
+  .link-neutral {
+    @apply text-neutral-700 hover:text-neutral-900 active:text-neutral-900 transition-colors;
+  }
+  
+  .link-underline {
+    @apply underline underline-offset-2;
+  }
+  
+  .link-no-underline {
+    @apply no-underline;
+  }
+  
+  /* Button styles */
+  .btn {
+    @apply inline-flex items-center justify-center px-18 py-7.5 text-xs font-medium rounded-lg transition-colors cursor-pointer;
+  }
+  
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-primary-dark cursor-pointer;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-primary border-2 border-primary hover:bg-primary hover:text-white cursor-pointer;
+  }
+  
+  /* Table styles */
+  .table-header {
+    @apply bg-neutral-50 text-neutral-900 font-semibold;
+  }
+  
+  .table-row {
+    @apply border-b border-neutral-200 hover:bg-neutral-50;
+  }
+  
+  /* Image overlay utility */
+  .image-overlay-container {
+    @apply relative overflow-hidden rounded-[5px];
+    
+    img {
+      @apply w-full h-full object-cover;
+    }
+    
+    &::after {
+      content: '';
+      @apply absolute inset-0 pointer-events-none;
+      background: linear-gradient(180deg, rgba(85, 85, 85, 0) 0%, rgba(0, 0, 0, 0.70) 99%);
+    }
+  }
+  
+  /* Alternative: Apply to image directly with wrapper */
+  .image-with-overlay {
+    @apply relative overflow-hidden rounded-[5px];
+    
+    .image-overlay {
+      @apply absolute inset-0 pointer-events-none;
+      background: linear-gradient(180deg, rgba(85, 85, 85, 0) 0%, rgba(0, 0, 0, 0.70) 99%);
+    }
+  }
+  
+  /* Tabs with full-width border */
+  .tabs-with-border {
+    @apply relative;
+    
+    &::after {
+      content: '';
+      @apply absolute left-0 right-0 h-[1px] bg-neutral-80;
+      top: 53px; // Height of tab list
+    }
+  }
+}
+
+/* Component overrides are now in separate files - see imports above */
+
+
+/* Spartan Menu Overrides */
+[data-hlm-menu] {
+  animation: dropdownSlide 0.2s ease-out;
+}
+
+/* Navigation dropdown menu overrides */
+.cdk-overlay-container {
+  hlm-menu.dropdown-menu {
+    background-color: white;
+    min-width: 150px;
+    padding: 0;
+    
+    // Override menu items
+    button[hlmMenuItem].dropdown-link {
+      color: #212b36;
+      height: 43px;
+      padding: 11.5px 20px;
+      margin: 0;
+      font-size: 13px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      
+      &:hover {
+        background-color: #f8f9fa;
+        color: #6a3460;
+      }
+      
+      &:focus {
+        outline: none;
+        background-color: #f8f9fa;
+        color: #6a3460;
+      }
+      
+      &.active {
+        background-color: #f8f9fa;
+        color: #6a3460;
+      }
+    }
+  }
+}
+

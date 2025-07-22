@@ -1,0 +1,129 @@
+<nav class="navigation-menu">
+  <hlm-menu-bar class="nav-menu-bar">
+    <!-- Dashboard -->
+    <button 
+      hlmMenuBarItem
+      class="nav-link"
+      [class.active]="isActive('/dashboard')"
+      (click)="navigateTo('/dashboard')"
+    >
+      DASHBOARD
+    </button>
+
+    <!-- Clients Menu -->
+    <button 
+      hlmMenuBarItem
+      [brnMenuTriggerFor]="clientsMenu"
+      class="nav-link has-dropdown"
+      [class.active]="isParentActive(menuItems[1])"
+    >
+      CLIENTS
+      <ng-icon name="lucideChevronDown" size="18" class="dropdown-arrow" />
+    </button>
+
+    <ng-template #clientsMenu>
+      <hlm-menu class="dropdown-menu">
+        <button hlmMenuItem class="dropdown-link" [class.active]="isActive('/clients/individuals')" (click)="navigateTo('/clients/individuals')">
+          INDIVIDUALS
+        </button>
+        <button hlmMenuItem class="dropdown-link" [class.active]="isActive('/clients/relationships')" (click)="navigateTo('/clients/relationships')">
+          RELATIONSHIPS
+        </button>
+        <button hlmMenuItem class="dropdown-link" [class.active]="isActive('/clients/interested-parties')" (click)="navigateTo('/clients/interested-parties')">
+          INTERESTED PARTIES
+        </button>
+        <button hlmMenuItem class="dropdown-link" [class.active]="isActive('/clients/prospects')" (click)="navigateTo('/clients/prospects')">
+          PROSPECTS
+        </button>
+        <button hlmMenuItem class="dropdown-link" [class.active]="isActive('/clients/addresses')" (click)="navigateTo('/clients/addresses')">
+          ADDRESSES
+        </button>
+      </hlm-menu>
+    </ng-template>
+
+    <!-- Portfolios Menu -->
+    <button 
+      hlmMenuBarItem
+      [brnMenuTriggerFor]="portfoliosMenu"
+      class="nav-link has-dropdown"
+      [class.active]="isParentActive(menuItems[2])"
+    >
+      PORTFOLIOS
+      <ng-icon name="lucideChevronDown" size="18" class="dropdown-arrow" />
+    </button>
+
+    <ng-template #portfoliosMenu>
+      <hlm-menu class="dropdown-menu">
+        <button hlmMenuItem class="dropdown-link" [class.active]="isActive('/portfolios/accounts')" (click)="navigateTo('/portfolios/accounts')">
+          ACCOUNTS
+        </button>
+        <button hlmMenuItem class="dropdown-link" [class.active]="isActive('/portfolios/groupings')" (click)="navigateTo('/portfolios/groupings')">
+          GROUPINGS
+        </button>
+        <button hlmMenuItem class="dropdown-link" [class.active]="isActive('/portfolios/strategies')" (click)="navigateTo('/portfolios/strategies')">
+          STRATEGIES
+        </button>
+      </hlm-menu>
+    </ng-template>
+
+    <!-- Planning Menu -->
+    <button 
+      hlmMenuBarItem
+      [brnMenuTriggerFor]="planningMenu"
+      class="nav-link has-dropdown"
+      [class.active]="isParentActive(menuItems[3])"
+    >
+      PLANNING
+      <ng-icon name="lucideChevronDown" size="18" class="dropdown-arrow" />
+    </button>
+
+    <ng-template #planningMenu>
+      <hlm-menu class="dropdown-menu">
+        <button hlmMenuItem class="dropdown-link" [class.active]="isActive('/planning/goals')" (click)="navigateTo('/planning/goals')">
+          GOALS
+        </button>
+        <button hlmMenuItem class="dropdown-link" [class.active]="isActive('/planning/scenarios')" (click)="navigateTo('/planning/scenarios')">
+          SCENARIOS
+        </button>
+        <button hlmMenuItem class="dropdown-link" [class.active]="isActive('/planning/proposals')" (click)="navigateTo('/planning/proposals')">
+          PROPOSALS
+        </button>
+      </hlm-menu>
+    </ng-template>
+
+    <!-- Search -->
+    <button 
+      hlmMenuBarItem
+      class="nav-link"
+      [class.active]="isActive('/search')"
+      (click)="navigateTo('/search')"
+    >
+      SEARCH
+    </button>
+
+    <!-- Reporting Menu -->
+    <button 
+      hlmMenuBarItem
+      [brnMenuTriggerFor]="reportingMenu"
+      class="nav-link has-dropdown"
+      [class.active]="isParentActive(menuItems[5])"
+    >
+      REPORTING
+      <ng-icon name="lucideChevronDown" size="18" class="dropdown-arrow" />
+    </button>
+
+    <ng-template #reportingMenu>
+      <hlm-menu class="dropdown-menu">
+        <button hlmMenuItem class="dropdown-link" [class.active]="isActive('/reporting/statements')" (click)="navigateTo('/reporting/statements')">
+          STATEMENTS
+        </button>
+        <button hlmMenuItem class="dropdown-link" [class.active]="isActive('/reporting/performance')" (click)="navigateTo('/reporting/performance')">
+          PERFORMANCE
+        </button>
+        <button hlmMenuItem class="dropdown-link" [class.active]="isActive('/reporting/analytics')" (click)="navigateTo('/reporting/analytics')">
+          ANALYTICS
+        </button>
+      </hlm-menu>
+    </ng-template>
+  </hlm-menu-bar>
+</nav>

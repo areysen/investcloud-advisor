@@ -1,0 +1,56 @@
+<div class="dashboard">
+  <!-- Page Header with gradient background -->
+  <app-page-header variant="dashboard">
+    <div class="dashboard-header-content">
+      <!-- Ticker banner positioned 10px from bottom of header -->
+      <div class="ticker-wrapper">
+        <app-ticker-banner></app-ticker-banner>
+      </div>
+
+      <div class="welcome-section">
+        <app-welcome-widget
+          [userName]="userName"
+          [lastLoginDate]="lastLoginDate"
+          (searchChange)="onSearch($event)"
+        ></app-welcome-widget>
+      </div>
+
+      <div class="kpi-section">
+        <app-kpi-section></app-kpi-section>
+      </div>
+    </div>
+  </app-page-header>
+
+  <!-- Main dashboard content below the gradient -->
+  <div class="dashboard-content -mt-[130px] relative z-10">
+    <div class="container-responsive pb-8">
+      <!-- Top section: Three column layout with fixed height -->
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 h-auto lg:h-[403px] mb-5"
+      >
+        <app-alerts-widget
+          class="lg:h-full flex w-full overflow-hidden"
+        ></app-alerts-widget>
+        <app-contributions-withdrawals-widget
+          class="lg:h-full flex w-full overflow-hidden"
+        ></app-contributions-withdrawals-widget>
+        <app-my-tasks-widget
+          class="lg:h-full flex w-full overflow-hidden"
+        ></app-my-tasks-widget>
+      </div>
+
+      <!-- Bottom section: Left column (1/3) + Right column (2/3) -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
+        <!-- Left column: Featured Content and Quick Links -->
+        <div class="lg:col-span-1 flex flex-col gap-5">
+          <app-featured-content-widget></app-featured-content-widget>
+          <app-quick-links-widget></app-quick-links-widget>
+        </div>
+        <!-- Right column: Accounts -->
+        <div class="lg:col-span-2">
+          <app-accounts-widget></app-accounts-widget>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

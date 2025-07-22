@@ -1,0 +1,96 @@
+<header class="app-header">
+  <div class="header-wrapper">
+    <div class="header-container">
+    <!-- Logo Section -->
+    <div class="logo-section">
+      <a routerLink="/" class="logo-link">
+        <img src="assets/images/investcloud-logo.svg" alt="InvestCloud" class="logo-image">
+      </a>
+    </div>
+
+    <!-- Right Section with stacked layout -->
+    <div class="right-section">
+      <!-- User Section (Top Row) -->
+      <div class="user-section">
+        <!-- Action Center Button -->
+        <button hlmBtn variant="ghost" class="action-center-button">
+          <ng-icon name="lucideLayoutGrid" size="20" />
+          <span>ACTION CENTER</span>
+        </button>
+
+        <!-- Messages -->
+        <div class="relative">
+          <button hlmBtn variant="ghost" size="icon" class="icon-button">
+            <ng-icon name="lucideMail" size="20" />
+          </button>
+          <span hlmBadge class="absolute -top-1 -right-1 h-4 w-4 p-0 flex items-center justify-center text-[10px]" variant="destructive">2</span>
+        </div>
+
+        <!-- Notifications -->
+        <div class="relative">
+          <button hlmBtn variant="ghost" size="icon" class="icon-button">
+            <ng-icon name="lucideBell" size="20" />
+          </button>
+          <span hlmBadge class="absolute -top-1 -right-1 h-4 w-4 p-0 flex items-center justify-center text-[10px]" variant="destructive">2</span>
+        </div>
+
+        <!-- User Menu -->
+        <button class="user-button" [brnMenuTriggerFor]="userMenu">
+          <hlm-avatar class="h-9 w-9">
+            <img hlmAvatarImage [src]="navigationService.userMenuConfig.avatar || 'assets/images/default-avatar.png'" alt="User Avatar" />
+            <span hlmAvatarFallback>{{ navigationService.userMenuConfig.user.substring(0, 2).toUpperCase() }}</span>
+          </hlm-avatar>
+          <span class="user-name">{{ navigationService.userMenuConfig.user }}</span>
+          <ng-icon name="lucideChevronDown" size="18" class="user-arrow" />
+        </button>
+
+        <ng-template #userMenu>
+          <hlm-menu class="user-dropdown-menu">
+            <button hlmMenuItem 
+                    *ngFor="let item of navigationService.userMenuConfig.menuItems.slice(0, -1)"
+                    class="user-dropdown-link">
+              <a *ngIf="item.route" [routerLink]="item.route">
+                {{ item.label }}
+              </a>
+              <span *ngIf="item.action" (click)="handleMenuAction(item.action)">
+                {{ item.label }}
+              </span>
+            </button>
+            
+            <hlm-menu-separator />
+            
+            <!-- Theme section -->
+            <div class="theme-submenu">
+              <span class="theme-label">THEME</span>
+              <div class="theme-options">
+                <button 
+                  class="theme-option"
+                  [class.selected]="selectedTheme === 'light'"
+                  (click)="handleThemeChange('light')">
+                  LIGHT
+                </button>
+                <button 
+                  class="theme-option"
+                  [class.selected]="selectedTheme === 'dark'"
+                  (click)="handleThemeChange('dark')">
+                  DARK
+                </button>
+              </div>
+            </div>
+          </hlm-menu>
+        </ng-template>
+
+        <!-- Logout Button -->
+        <button hlmBtn variant="outline" class="logout-button" (click)="handleMenuAction('logout')">
+          LOGOUT
+        </button>
+      </div>
+
+      <!-- Navigation Menu (Bottom Row) -->
+      <div class="nav-section">
+        <app-navigation-menu></app-navigation-menu>
+      </div>
+    </div>
+  </div>
+  </div>
+</header>

@@ -1,0 +1,13 @@
+.dashboard {
+  .dashboard-header-content {
+    @apply relative h-full flex flex-col;
+    
+    .ticker-wrapper {
+      @apply absolute top-[10px] left-0 right-0 z-20 overflow-visible;
+    }
+    
+    .welcome-section {
+      padding-top: 71px; // 10px (ticker position) + 36px (ticker height) + 25px (gap)
+    }
+  }
+}

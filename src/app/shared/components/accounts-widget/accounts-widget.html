@@ -1,0 +1,59 @@
+<div hlmCard>
+  <div hlmCardHeader class="card-header-clickable">
+    <a href="#" class="card-title-link" (click)="onHeaderClick($event)">
+      <h3 hlmCardTitle>Accounts</h3>
+      <ng-icon name="lucideChevronRight" size="20" class="chevron-icon" />
+    </a>
+  </div>
+  
+  <div hlmCardContent>
+    <div class="tabs-with-border">
+      <hlm-tabs [tab]="activeTab" (tabActivated)="activeTab = $event">
+        <hlm-tabs-list>
+          <button hlmTabsTrigger="relationships">Relationships</button>
+          <button hlmTabsTrigger="accounts">Accounts</button>
+          <button hlmTabsTrigger="groups">Account Groups</button>
+          <button hlmTabsTrigger="clients">Clients</button>
+        </hlm-tabs-list>
+        
+        <div class="p-0" hlmTabsContent="relationships" *ngIf="activeTab === 'relationships'">
+          <app-data-table
+            [data]="relationshipsData"
+            [columns]="relationshipsColumns"
+            [config]="tableConfig"
+            (rowClick)="onRelationshipClick($event)"
+            (actionClick)="onProfileClick($event)"
+          ></app-data-table>
+        </div>
+        
+        <div class="p-0" hlmTabsContent="accounts" *ngIf="activeTab === 'accounts'">
+          <app-data-table
+            [data]="accountsData"
+            [columns]="accountsColumns"
+            [config]="tableConfig"
+            (rowClick)="onAccountClick($event)"
+          ></app-data-table>
+        </div>
+        
+        <div class="p-0" hlmTabsContent="groups" *ngIf="activeTab === 'groups'">
+          <app-data-table
+            [data]="accountGroupsData"
+            [columns]="accountGroupsColumns"
+            [config]="tableConfig"
+            (rowClick)="onAccountGroupClick($event)"
+          ></app-data-table>
+        </div>
+        
+        <div class="p-0" hlmTabsContent="clients" *ngIf="activeTab === 'clients'">
+          <app-data-table
+            [data]="clientsData"
+            [columns]="clientsColumns"
+            [config]="tableConfig"
+            (rowClick)="onClientClick($event)"
+            (actionClick)="onBecomeUserClick($event)"
+          ></app-data-table>
+        </div>
+      </hlm-tabs>
+    </div>
+  </div>
+</div>

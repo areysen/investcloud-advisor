@@ -1,0 +1,10 @@
+<div class="kpi-section-wrapper">
+  <div class="kpi-grid">
+    <app-kpi-widget 
+      *ngFor="let kpi of kpis; let i = index"
+      [kpi]="kpi"
+      [variant]="i === 0 ? 'large' : 'small'"
+      class="kpi-item"
+    ></app-kpi-widget>
+  </div>
+</div>

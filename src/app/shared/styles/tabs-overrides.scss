@@ -1,0 +1,58 @@
+// Spartan Tabs Component Overrides
+
+/* Tab List - Remove default padding and spacing between tabs */
+hlm-tabs-list[class] {
+  @apply p-0 rounded-none h-[53px];
+  
+  /* Remove horizontal spacing between tabs */
+  &[data-orientation="horizontal"] {
+    @apply space-x-0;
+  }
+}
+
+/* Tabs Container - Remove gap */
+hlm-tabs[class] {
+  @apply gap-0;
+}
+
+/* Tab Content - Remove margin */
+[hlmTabsContent] {
+  @apply mt-0;
+}
+
+/* Tab Triggers - Button styling */
+[hlmTabsTrigger] {
+  @apply border-0 rounded-none px-5 py-0 bg-transparent shadow-none text-base;
+  position: relative;
+  height: 100%;
+  transition: all 0.2s ease;
+  box-shadow: none !important;
+  
+  /* Hover state - Light background */
+  &:hover:not([data-state='active']) {
+    @apply bg-neutral-50 shadow-none;
+  }
+  
+  /* Selected/Active state - Add bottom border */
+  &[data-state='active'] {
+    @apply shadow-none;
+    position: relative;;
+    
+    /* Bottom border indicator */
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background-color: #6A3F5F;
+    }
+  }
+  
+  /* Remove shadow on all states */
+  &:focus, &:focus-visible {
+    @apply shadow-none outline-none;
+    box-shadow: none !important;
+  }
+}

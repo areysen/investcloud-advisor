@@ -1,0 +1,14 @@
+<div class="kpi-widget" [ngClass]="variant">
+  <div class="kpi-content">
+    <p class="kpi-label">{{ kpi.label }}</p>
+    
+    <div class="kpi-value-container">
+      <h2 class="kpi-value">{{ formattedValue }}</h2>
+      <span class="kpi-change" [ngClass]="changeClass" *ngIf="kpi.changePercent">
+        {{ formattedChange }}
+      </span>
+    </div>
+    
+    <p class="kpi-sub-label" *ngIf="kpi.subLabel">{{ kpi.subLabel }}</p>
+  </div>
+</div>

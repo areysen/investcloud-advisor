@@ -1,0 +1,12 @@
+.app-container {
+  @apply min-h-screen flex flex-col;
+}
+
+.main-content {
+  @apply flex-1;
+  overflow-x: hidden; // Prevent horizontal scroll from full-width gradient
+  
+  .main-wrapper {
+    @apply w-full;
+  }
+}

@@ -1,0 +1,149 @@
+// Checkbox styles based on IC11 Design System
+.hlm-checkbox {
+  @apply relative inline-flex items-center;
+
+  // Base checkbox input (hidden)
+  input[type="checkbox"] {
+    @apply sr-only;
+  }
+
+  // Checkbox visual representation
+  .checkbox-box {
+    @apply relative flex items-center justify-center;
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    background-color: white;
+    border: 1px solid #d0d4dc; // neutral-150
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 0 #edeff3; // Drop shadow effect
+
+    // Check icon
+    .checkbox-icon {
+      @apply hidden;
+      width: 11.66px;
+      height: 8.94px;
+      color: white;
+    }
+
+    // Minus icon for indeterminate state
+    .checkbox-minus {
+      @apply hidden;
+      width: 9.31px;
+      height: 1.31px;
+      background-color: white;
+    }
+  }
+
+  // States
+  
+  // Default unchecked
+  &:not(.checked):not(.indeterminate) {
+    .checkbox-box {
+      background-color: white;
+      border-color: #d0d4dc;
+    }
+  }
+
+  // Hover/Active state (unchecked)
+  &:not(.checked):not(.indeterminate):hover,
+  &:not(.checked):not(.indeterminate):focus-within {
+    .checkbox-box {
+      border-color: #6a3f5f;
+      border-width: 2px;
+    }
+  }
+
+  // Checked state
+  &.checked {
+    .checkbox-box {
+      background-color: #6a3f5f; // primary-dark
+      border-color: #6a3f5f;
+
+      .checkbox-icon {
+        @apply block;
+      }
+    }
+
+    &:hover,
+    &:focus-within {
+      .checkbox-box {
+        background-color: #6a3f5f;
+        border-color: #6a3f5f;
+      }
+    }
+  }
+
+  // Indeterminate state
+  &.indeterminate {
+    .checkbox-box {
+      background-color: #6a3f5f;
+      border-color: #6a3f5f;
+
+      .checkbox-minus {
+        @apply block;
+      }
+    }
+  }
+
+  // Error state
+  &.error {
+    .checkbox-box {
+      border-color: #febcb9; // error-200
+    }
+
+    &.checked {
+      .checkbox-box {
+        background-color: #d5000d; // error
+        border-color: #d5000d;
+      }
+    }
+
+    &.indeterminate {
+      .checkbox-box {
+        background-color: #d5000d;
+        border-color: #d5000d;
+      }
+    }
+  }
+
+  // Disabled state
+  &.disabled {
+    @apply cursor-not-allowed opacity-100;
+
+    .checkbox-box {
+      background-color: #edeff3; // neutral-50
+      border-color: #88939e; // neutral-500
+    }
+
+    &.checked {
+      .checkbox-box {
+        background-color: #88939e;
+        border-color: #88939e;
+      }
+    }
+
+    &.indeterminate {
+      .checkbox-box {
+        background-color: #88939e;
+        border-color: #88939e;
+      }
+    }
+  }
+
+  // Focus state
+  &:focus-within {
+    .checkbox-box {
+      @apply ring-2 ring-primary ring-offset-2;
+    }
+  }
+}
+
+// Label styling when used with checkbox
+.hlm-checkbox-label {
+  @apply ml-2 text-sm font-medium text-neutral-900 cursor-pointer;
+  
+  .hlm-checkbox.disabled + & {
+    @apply cursor-not-allowed text-neutral-500;
+  }
+}

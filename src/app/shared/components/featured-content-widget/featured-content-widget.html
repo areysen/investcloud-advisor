@@ -1,0 +1,70 @@
+<div hlmCard>
+  <div hlmCardHeader>
+    <h3 hlmCardTitle>Featured Content</h3>
+  </div>
+
+  <div hlmCardContent>
+    <div class="tabs-with-border">
+      <hlm-tabs [tab]="activeTab" (tabActivated)="activeTab = $event">
+        <hlm-tabs-list>
+          <button hlmTabsTrigger="event">Upcoming Event</button>
+          <button hlmTabsTrigger="news">What's New</button>
+        </hlm-tabs-list>
+
+        <div class="p-5" hlmTabsContent="event" *ngIf="activeTab === 'event'">
+          <div *ngIf="eventItem" class="space-y-5">
+            <div class="image-overlay-container w-full h-[180px]">
+              <img [src]="eventItem.imageUrl" [alt]="eventItem.title" />
+            </div>
+
+            <h4 class="text-xl font-semibold">
+              {{ eventItem.title }}
+            </h4>
+
+            <p>
+              {{ eventItem.description }}
+            </p>
+
+            <div class="flex justify-center pt-[10px]">
+              <button
+                hlmBtn
+                variant="outline"
+                class="px-8"
+                (click)="onButtonClick()"
+              >
+                {{ eventItem.buttonText }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-5" hlmTabsContent="news" *ngIf="activeTab === 'news'">
+          <div *ngIf="newsItem" class="space-y-5">
+            <div class="image-overlay-container w-full h-[180px]">
+              <img [src]="newsItem.imageUrl" [alt]="newsItem.title" />
+            </div>
+
+            <h4 class="text-xl font-semibold">
+              {{ newsItem.title }}
+            </h4>
+
+            <p>
+              {{ newsItem.description }}
+            </p>
+
+            <div class="flex justify-center pt-[10px]">
+              <button
+                hlmBtn
+                variant="outline"
+                class="px-8"
+                (click)="onButtonClick()"
+              >
+                {{ newsItem.buttonText }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </hlm-tabs>
+    </div>
+  </div>
+</div>

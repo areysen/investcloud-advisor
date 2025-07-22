@@ -1,0 +1,140 @@
+// Spartan Button Component Overrides
+
+/* Primary Button Style */
+button[hlmBtn][variant="default"],
+button[hlmBtn]:not([variant]) {
+  background-color: #6a3460;
+  color: white;
+  text-transform: uppercase;
+  font-family: 'Red Hat Text', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  border-radius: 10px;
+  padding: 0 20px;
+  height: 37px;
+  line-height: 37px;
+  box-shadow: none;
+  border: none;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+  
+  &:hover:not(:disabled) {
+    background-color: #c63663;
+  }
+  
+  &:active:not(:disabled) {
+    background-color: #5a2c50;
+  }
+  
+  &:disabled {
+    background-color: #e1d6df;
+    color: white;
+    cursor: not-allowed;
+    opacity: 1;
+  }
+  
+  // With icon styles
+  &:has(ng-icon) {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    
+    ng-icon {
+      font-size: 16px;
+    }
+  }
+  
+  // Dropdown arrow for button
+  &:has(.lucideChevronDown) {
+    padding-right: 16px;
+    
+    ng-icon {
+      margin-left: 4px;
+    }
+  }
+}
+
+/* Secondary/Outline Button Style */
+button[hlmBtn][variant="outline"] {
+  background-color: transparent;
+  color: #6a3460;
+  text-transform: uppercase;
+  font-family: 'Red Hat Text', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  border-radius: 10px;
+  padding: 0 20px;
+  height: 37px;
+  line-height: 33px; /* 37px - 4px for border */
+  box-shadow: none;
+  border: 2px solid #6a3460;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  
+  &:hover:not(:disabled) {
+    background-color: #c63663;
+    border-color: #c63663;
+    color: white;
+  }
+  
+  &:active:not(:disabled) {
+    background-color: #c63663;
+    border-color: #c63663;
+    color: white;
+  }
+  
+  &:disabled {
+    background-color: transparent;
+    border-color: #e1d6df;
+    color: #e1d6df;
+    cursor: not-allowed;
+    opacity: 1;
+  }
+  
+  // With icon styles
+  &:has(ng-icon) {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    
+    ng-icon {
+      font-size: 16px;
+    }
+  }
+  
+  // Dropdown arrow for button
+  &:has(.lucideChevronDown) {
+    padding-right: 16px;
+    
+    ng-icon {
+      margin-left: 4px;
+    }
+  }
+}
+
+/* Ghost Button Style */
+button[hlmBtn][variant="ghost"] {
+  background-color: transparent;
+  color: #6a3460;
+  font-family: 'Red Hat Text', sans-serif;
+  font-weight: 500;
+  border: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  
+  &:hover:not(:disabled) {
+    background-color: rgba(106, 52, 96, 0.1);
+  }
+  
+  &:active:not(:disabled) {
+    background-color: rgba(106, 52, 96, 0.2);
+  }
+  
+  &:disabled {
+    color: #e1d6df;
+    cursor: not-allowed;
+    opacity: 1;
+  }
+}

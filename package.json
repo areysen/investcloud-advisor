@@ -6,7 +6,10 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "lint:setup": "ng add angular-eslint",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck && npm run build"
   },
   "prettier": {
     "overrides": [
@@ -20,13 +23,30 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/cdk": "^20.1.2",
     "@angular/common": "^20.1.0",
     "@angular/compiler": "^20.1.0",
     "@angular/core": "^20.1.0",
     "@angular/forms": "^20.1.0",
     "@angular/platform-browser": "^20.1.0",
     "@angular/router": "^20.1.0",
+    "@fortawesome/fontawesome-free": "^6.7.2",
+    "@ng-icons/core": "^29.10.0",
+    "@ng-icons/lucide": ">=29.0.0",
+    "@spartan-ng/brain": "0.0.1-alpha.488",
+    "@spartan-ng/ui-core": "^0.0.1-alpha.380",
+    "@types/lodash": "^4.17.20",
+    "chart.js": "^4.5.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
+    "embla-carousel-angular": ">=19.0.0",
+    "lodash": "^4.17.21",
+    "material-icons": "^1.13.14",
+    "ng2-charts": "^8.0.0",
+    "ngx-sonner": ">=3.0.0",
     "rxjs": "~7.8.0",
+    "tailwind-merge": "^2.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
   },
@@ -34,13 +54,19 @@
     "@angular/build": "^20.1.1",
     "@angular/cli": "^20.1.1",
     "@angular/compiler-cli": "^20.1.0",
+    "@faker-js/faker": "^9.9.0",
+    "@spartan-ng/cli": "^0.0.1-alpha.488",
     "@types/jasmine": "~5.1.0",
+    "autoprefixer": "^10.4.21",
     "jasmine-core": "~5.8.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17",
+    "tailwindcss-animate": "^1.0.6",
     "typescript": "~5.8.2"
   }
 }

@@ -1,0 +1,95 @@
+// Spartan Checkbox Component Overrides
+
+hlm-checkbox {
+  @apply relative inline-flex items-center;
+
+  // Checkbox visual representation
+  .checkbox-box {
+    @apply relative flex items-center justify-center cursor-pointer;
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    background-color: white;
+    border: 1px solid #d0d4dc;
+    transition: all 0.15s ease;
+    box-shadow: 0 1px 0 #edeff3;
+
+    // Check icon
+    .checkbox-icon {
+      @apply hidden;
+      width: 11.66px;
+      height: 8.94px;
+      color: white;
+    }
+
+    // Minus icon for indeterminate state
+    .checkbox-minus {
+      @apply hidden;
+      width: 9.31px;
+      height: 1.31px;
+      background-color: white;
+    }
+  }
+
+  // States
+  
+  // Hover/Active state (unchecked)
+  &:not(.checked):not(.indeterminate):hover .checkbox-box,
+  &:not(.checked):not(.indeterminate):has(input:focus-visible) .checkbox-box {
+    border-color: #6a3f5f;
+    border-width: 2px;
+  }
+
+  // Checked state
+  &.checked .checkbox-box {
+    background-color: #6a3f5f;
+    border-color: #6a3f5f;
+
+    .checkbox-icon {
+      @apply block;
+    }
+  }
+
+  // Indeterminate state
+  &.indeterminate .checkbox-box {
+    background-color: #6a3f5f;
+    border-color: #6a3f5f;
+
+    .checkbox-minus {
+      @apply block;
+    }
+  }
+
+  // Error state
+  &.error .checkbox-box {
+    border-color: #febcb9;
+  }
+
+  &.error.checked .checkbox-box,
+  &.error.indeterminate .checkbox-box {
+    background-color: #d5000d;
+    border-color: #d5000d;
+  }
+
+  // Disabled state
+  &.disabled {
+    @apply cursor-not-allowed;
+
+    .checkbox-box {
+      background-color: #edeff3;
+      border-color: #88939e;
+      cursor: not-allowed;
+    }
+  }
+
+  &.disabled.checked .checkbox-box,
+  &.disabled.indeterminate .checkbox-box {
+    background-color: #88939e;
+    border-color: #88939e;
+  }
+
+  // Focus state
+  &:has(input:focus-visible) .checkbox-box {
+    @apply ring-2 ring-primary ring-offset-2;
+  }
+}

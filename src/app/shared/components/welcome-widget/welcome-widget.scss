@@ -1,0 +1,71 @@
+.welcome-widget {
+  padding-bottom: 35px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  
+  .welcome-content {
+    @apply w-full mx-auto flex items-center justify-between;
+    
+    /* Mobile: edge to edge with padding */
+    @media (max-width: 767px) {
+      @apply px-4 flex-col items-start gap-4;
+    }
+    
+    /* Tablet: 95vw */
+    @media (min-width: 768px) and (max-width: 1439px) {
+      max-width: 95vw;
+      @apply px-6;
+    }
+    
+    /* Desktop: max 1440px */
+    @media (min-width: 1440px) {
+      max-width: 1440px;
+    }
+  }
+  
+  .welcome-text {
+    .welcome-title {
+      @apply text-3xl font-medium text-white;
+      font-family: 'Red Hat Text', sans-serif;
+      margin-bottom: 16px;
+    }
+    
+    .welcome-subtitle {
+      @apply text-sm text-white/80;
+      font-family: 'Red Hat Text', sans-serif;
+    }
+  }
+  
+  .search-container {
+    @apply relative;
+    width: 340px;
+    
+    @media (max-width: 767px) {
+      width: 100%;
+    }
+    
+    .search-input {
+      @apply w-full pr-10 bg-white text-neutral-900;
+      font-family: 'Red Hat Text', sans-serif;
+      font-size: 14px;
+      height: 38px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.2s ease;
+      
+      &::placeholder {
+        @apply text-neutral-500;
+      }
+      
+      &:focus {
+        @apply outline-none shadow-lg;
+        border-color: white;
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+      }
+    }
+    
+    .search-icon {
+      @apply absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-500;
+      pointer-events: none;
+    }
+  }
+}

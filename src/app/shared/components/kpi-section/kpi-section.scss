@@ -1,0 +1,35 @@
+.kpi-section-wrapper {
+  @apply w-full mx-auto;
+  padding-top: 40px;
+  padding-bottom: 58px;
+  
+  /* Mobile: edge to edge with padding */
+  @media (max-width: 767px) {
+    @apply px-4;
+  }
+  
+  /* Tablet: 95vw */
+  @media (min-width: 768px) and (max-width: 1439px) {
+    max-width: 95vw;
+    @apply px-6;
+  }
+  
+  /* Desktop: max 1440px */
+  @media (min-width: 1440px) {
+    max-width: 1440px;
+  }
+  
+  .kpi-grid {
+    @apply grid gap-x-8 gap-y-10;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, auto);
+    }
+    
+    @media (max-width: 767px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}

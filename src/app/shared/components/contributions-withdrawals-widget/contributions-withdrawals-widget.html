@@ -1,0 +1,41 @@
+<div hlmCard class="h-full flex flex-col">
+  <div hlmCardHeader>
+    <h3 hlmCardTitle>Contribution / Withdrawals</h3>
+    <button
+      hlmBtn
+      size="icon"
+      variant="ghost"
+      class="h-8 w-8"
+      (click)="onCopy()"
+    >
+      <ng-icon name="lucideLayers" size="16" />
+    </button>
+  </div>
+
+  <div hlmCardContent class="flex flex-col flex-1 p-0 overflow-hidden">
+    <div class="flex-1 overflow-y-auto">
+      <div
+        class="flex items-start justify-between px-6 py-3 border-b border-neutral-100 last:border-b-0"
+        *ngFor="let transaction of transactions"
+      >
+        <div class="flex flex-col flex-1 pr-4">
+          <span>
+            {{ transaction.person }} made a ${{
+              formatAmount(transaction.amount)
+            }}
+          </span>
+          <span class="text-neutral-700 text-sm">
+            {{ transaction.description }}
+          </span>
+        </div>
+        <span>
+          {{ transaction.date }}
+        </span>
+      </div>
+    </div>
+
+    <div class="flex justify-center px-6 py-4">
+      <button hlmBtn variant="outline" (click)="onViewAll()">VIEW ALL</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,79 @@
+.ticker-banner {
+  @apply w-screen bg-white/95 backdrop-blur-sm shadow-sm;
+  height: 36px;
+  overflow: hidden;
+  position: relative;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  
+  .ticker-content {
+    @apply h-full flex items-center;
+    position: relative;
+    
+    .ticker-track {
+      @apply flex items-center;
+      animation: scroll 60s linear infinite;
+      white-space: nowrap;
+      
+      .ticker-item {
+        @apply flex items-center gap-2 px-6;
+        font-family: 'Red Hat Text', sans-serif;
+        font-size: 13px;
+        
+        .ticker-symbol {
+          @apply font-medium text-neutral-900;
+        }
+        
+        .ticker-value {
+          @apply text-neutral-700;
+        }
+        
+        .ticker-change {
+          @apply font-medium;
+          
+          &.positive {
+            color: #00A651; // Green for positive
+          }
+          
+          &.negative {
+            color: #D32F2F; // Red for negative
+          }
+          
+          &.neutral {
+            @apply text-neutral-600;
+          }
+        }
+        
+        .ticker-percent {
+          @apply font-medium;
+          
+          &.positive {
+            color: #00A651;
+          }
+          
+          &.negative {
+            color: #D32F2F;
+          }
+          
+          &.neutral {
+            @apply text-neutral-600;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.33%);
+  }
+}
+
+// Pause on hover for accessibility
+.ticker-banner:hover .ticker-track {
+  animation-play-state: paused;
+}

@@ -1,0 +1,23 @@
+.holdings-page {
+  .page-content {
+    .content-wrapper {
+      @apply w-full mx-auto py-8;
+      
+      /* Mobile: edge to edge with padding */
+      @media (max-width: 767px) {
+        @apply px-4;
+      }
+      
+      /* Tablet: 95vw */
+      @media (min-width: 768px) and (max-width: 1439px) {
+        max-width: 95vw;
+        @apply px-6;
+      }
+      
+      /* Desktop: max 1440px */
+      @media (min-width: 1440px) {
+        max-width: 1440px;
+      }
+    }
+  }
+}

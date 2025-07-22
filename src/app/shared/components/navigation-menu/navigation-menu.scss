@@ -1,0 +1,96 @@
+.navigation-menu {
+  @apply flex items-center;
+
+  // Override Spartan menu bar styles
+  ::ng-deep {
+    .nav-menu-bar {
+      @apply flex items-center gap-6 h-full;
+      background: transparent;
+      border: none;
+      padding: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    // Menu bar items (top level buttons)
+    button[hlmMenuBarItem] {
+      @apply flex items-center gap-1 px-0 py-[10px] text-[13px] font-medium transition-colors relative uppercase tracking-wide;
+      color: #212b36;
+      background: transparent;
+      border: none;
+      height: auto;
+      
+      &:hover {
+        color: #212b36;
+        background: transparent;
+      }
+      
+      &:focus {
+        outline: none;
+        box-shadow: none;
+      }
+      
+      // Active route styling
+      &.active {
+        color: #6a3460;
+        
+        &::after {
+          content: '';
+          @apply absolute bottom-0 left-0 right-0 h-[2px];
+          background-color: #6a3460;
+        }
+      }
+
+      // Dropdown arrow animation when menu is open
+      &[data-state="open"] {
+        .dropdown-arrow {
+          @apply rotate-180;
+        }
+      }
+    }
+
+    // Dropdown arrow
+    .dropdown-arrow {
+      @apply transition-transform duration-200;
+      color: inherit;
+      margin-left: 2px;
+    }
+
+    // Dropdown menu container
+    .dropdown-menu {
+      @apply bg-white rounded-[3px] shadow-lg;
+      border: 1px solid #e0e3e7;
+      min-width: 150px;
+      padding: 0;
+      margin-top: 8px;
+    }
+
+    // Dropdown menu items
+    button[hlmMenuItem] {
+      @apply block w-full px-5 py-[11.5px] text-[13px] font-medium uppercase tracking-wide transition-colors whitespace-nowrap text-left;
+      color: #212b36;
+      height: 43px;
+      display: flex;
+      align-items: center;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      
+      &:hover {
+        background-color: #f8f9fa;
+        color: #6a3460;
+      }
+      
+      &:focus {
+        outline: none;
+        background-color: #f8f9fa;
+        color: #6a3460;
+      }
+      
+      &.active {
+        background-color: #f8f9fa;
+        color: #6a3460;
+      }
+    }
+  }
+}

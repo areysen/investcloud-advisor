@@ -1,0 +1,201 @@
+<div class="data-table-container">
+  <table hlmTable class="w-full text-base">
+    <thead hlmTHead>
+      <!-- Header Row -->
+      <tr hlmTr class="bg-[#F9FAFC] h-[50px]">
+        <th
+          hlmTh
+          *ngFor="let column of columns; let i = index; let last = last"
+          [class.cursor-pointer]="column.sortable"
+          [class.text-left]="!column.align || column.align === 'left'"
+          [class.text-center]="column.align === 'center'"
+          [class.text-right]="column.align === 'right'"
+          [class.pl-5]="i === 0"
+          [class.pr-5]="last"
+          [style.width]="column.width"
+          (click)="sort(column)"
+        >
+          <div
+            class="flex items-center"
+            [class.justify-start]="!column.align || column.align === 'left'"
+            [class.justify-center]="column.align === 'center'"
+            [class.justify-end]="column.align === 'right'"
+          >
+            <span>{{ column.label }}</span>
+            <ng-icon
+              *ngIf="showSortIcon(column)"
+              [name]="getSortIcon(column)"
+              size="16"
+              class="text-neutral-500 ml-1"
+            />
+          </div>
+        </th>
+      </tr>
+
+      <!-- Filter Row -->
+      <tr hlmTr *ngIf="config.showFilter" class="border-t h-[50px]">
+        <th
+          hlmTh
+          *ngFor="let column of columns; let i = index; let last = last"
+          class="p-2"
+          [class.pl-5]="i === 0"
+          [class.pr-5]="last"
+        >
+          <div *ngIf="column.filterable" class="relative">
+            <ng-icon
+              name="lucideSearch"
+              size="16"
+              class="absolute left-2 top-1/2 transform -translate-y-1/2 text-neutral-400 pointer-events-none"
+            />
+            <input
+              hlmInput
+              type="text"
+              [placeholder]="config.filterPlaceholder"
+              class="w-full h-8 pl-8"
+              (input)="onFilterChange(column, $any($event.target).value)"
+            />
+          </div>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody hlmTBody>
+      <!-- Data Rows -->
+      <tr
+        hlmTr
+        *ngFor="let row of displayedData"
+        class="cursor-pointer hover:bg-neutral-50 h-[45px]"
+        (click)="onRowClicked(row)"
+      >
+        <td
+          hlmTd
+          *ngFor="let column of columns; let i = index; let last = last"
+          [class.text-left]="!column.align || column.align === 'left'"
+          [class.text-center]="column.align === 'center'"
+          [class.text-right]="column.align === 'right'"
+          [class.pl-5]="i === 0"
+          [class.pr-5]="last"
+        >
+          <!-- Text/Number/Currency/Date columns -->
+          <span
+            *ngIf="
+              column.type !== 'icon' &&
+              column.type !== 'action' &&
+              column.type !== 'link' &&
+              column.type !== 'custom'
+            "
+          >
+            {{ formatCellValue(row, column) }}
+          </span>
+
+          <!-- Link columns -->
+          <a
+            *ngIf="column.type === 'link'"
+            href="#"
+            class="text-inherit no-underline hover:underline"
+            (click)="onLinkClicked($event, column, row)"
+          >
+            {{ formatCellValue(row, column) }}
+          </a>
+
+          <!-- Custom columns -->
+          <ng-container *ngIf="column.type === 'custom'">
+            <app-value-indicator
+              *ngIf="column.key === 'unrealizedGL'"
+              [value]="getCellValue(row, column)"
+              format="currency"
+            ></app-value-indicator>
+          </ng-container>
+
+          <!-- Icon/Action columns -->
+          <button
+            *ngIf="column.type === 'icon' || column.type === 'action'"
+            hlmBtn
+            size="icon"
+            variant="ghost"
+            class="h-8 w-8"
+            (click)="onActionClicked(column, row, $event)"
+          >
+            <ng-icon
+              [name]="column.icon || 'lucideUser'"
+              size="16"
+              [class]="column.iconColor || 'text-neutral-600'"
+            />
+          </button>
+        </td>
+      </tr>
+
+      <!-- Empty State -->
+      <tr hlmTr *ngIf="displayedData.length === 0">
+        <td
+          hlmTd
+          [attr.colspan]="columns.length"
+          class="text-center py-8 text-neutral-500"
+        >
+          {{ config.emptyMessage }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div
+    *ngIf="config.showPagination && filteredData.length > 0"
+    class="pagination-container"
+  >
+    <div class="flex items-center justify-between px-4 py-3 border-t">
+      <div class="flex items-center gap-[10px]">
+        <!-- Previous Button -->
+        <button
+          class="pagination-arrow h-9 w-9 rounded-[5px] border border-[#D0D4DC] bg-gradient-to-b from-white to-[#F3F4F5] hover:from-[#F3F4F5] hover:to-[#E8E9EA] flex items-center justify-center transition-all"
+          [disabled]="paginationState.pageIndex === 0 || showAllItems"
+          (click)="onPageChange(paginationState.pageIndex - 1)"
+        >
+          <ng-icon name="lucideArrowLeft" size="16" />
+        </button>
+
+        <!-- Page Numbers -->
+        <ng-container *ngIf="!showAllItems">
+          <button
+            *ngFor="let page of pageNumbers"
+            class="pagination-number min-w-[8px] h-9 text-base font-medium transition-all"
+            [class.active]="page === paginationState.pageIndex + 1"
+            (click)="onPageChange(page - 1)"
+          >
+            {{ page }}
+          </button>
+        </ng-container>
+
+        <!-- Next Button -->
+        <button
+          class="pagination-arrow h-9 w-9 rounded-[5px] border border-[#D0D4DC] bg-gradient-to-b from-white to-[#F3F4F5] hover:from-[#F3F4F5] hover:to-[#E8E9EA] flex items-center justify-center transition-all"
+          [disabled]="
+            paginationState.pageIndex >= totalPages - 1 || showAllItems
+          "
+          (click)="onPageChange(paginationState.pageIndex + 1)"
+        >
+          <ng-icon name="lucideArrowRight" size="16" />
+        </button>
+      </div>
+
+      <!-- Show All Toggle -->
+      <div
+        class="flex items-center gap-2"
+        *ngIf="config.showAllToggle !== false"
+      >
+        <span class="text-sm text-neutral-600">Show all items</span>
+        <label class="relative inline-flex items-center cursor-pointer">
+          <input
+            type="checkbox"
+            class="sr-only peer"
+            [(ngModel)]="showAllItems"
+            (change)="onShowAllToggle()"
+          />
+          <div
+            class="w-11 h-6 bg-neutral-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"
+          ></div>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>

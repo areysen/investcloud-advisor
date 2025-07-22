@@ -1,0 +1,48 @@
+<div hlmCard class="h-full flex flex-col">
+  <div hlmCardHeader>
+    <h3 hlmCardTitle>Tasks</h3>
+    <button
+      hlmBtn
+      variant="ghost"
+      size="sm"
+      class="flex items-center gap-1 hover:text-primary-hover"
+      (click)="onNewTask()"
+    >
+      <ng-icon name="lucidePlus" size="16"></ng-icon>
+      <span>New Task</span>
+    </button>
+  </div>
+
+  <div hlmCardContent class="flex flex-col flex-1 p-0 overflow-hidden">
+    <div class="flex-1 overflow-y-auto">
+      <div
+        class="flex items-center px-6 py-3 gap-3 border-b border-neutral-100 last:border-b-0"
+        *ngFor="let task of tasks"
+      >
+        <hlm-checkbox
+          class="flex-shrink-0"
+          [checked]="task.completed"
+          (checkedChange)="onTaskToggle(task)"
+        >
+        </hlm-checkbox>
+
+        <div class="flex items-center flex-1 gap-2">
+          <span>{{ task.name }}: {{ task.person }}</span>
+          <ng-icon
+            *ngIf="task.hasWarning"
+            name="lucideTriangleAlert"
+            class="flex-shrink-0 text-orange-500"
+            size="16"
+          >
+          </ng-icon>
+        </div>
+
+        <span class="flex-shrink-0">{{ task.date }}</span>
+      </div>
+    </div>
+
+    <div class="flex justify-center px-6 py-4">
+      <button hlmBtn variant="outline" (click)="onViewAll()">VIEW ALL</button>
+    </div>
+  </div>
+</div>
