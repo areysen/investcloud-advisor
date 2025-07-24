@@ -1,142 +1,81 @@
 <div class="min-h-screen bg-gray-50">
   <!-- Page Header with gradient background -->
-  <app-page-header title="Accounts" [height]="'short'"></app-page-header>
+  <app-page-header [height]="'short'">
+    <div class="flex items-center justify-between w-full">
+      <h1 class="text-3xl font-semibold text-white">Accounts</h1>
+      <button hlmBtn variant="outline" class="bg-white/10 backdrop-blur border-white/20 text-white hover:bg-white/20 text-sm font-medium">
+        MANAGE ACCOUNT GROUPS
+      </button>
+    </div>
+  </app-page-header>
   
   <!-- Content Container -->
   <div class="container mx-auto px-6 -mt-16 pb-8">
-    <!-- Summary Section -->
-    <div class="space-y-5 mb-6">
-      <!-- Search Bar Card -->
-      <div hlmCard class="bg-white rounded-lg shadow-sm p-0">
-        <div class="px-6 py-5">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-4">
-              <label class="text-sm font-medium text-gray-700">Saved queries</label>
-              <select 
-                class="h-9 w-56 rounded-md border border-gray-300 bg-white px-3 py-1 text-sm focus:border-purple-primary focus:outline-none focus:ring-1 focus:ring-purple-primary"
-                [(ngModel)]="selectedQuery" 
-                (ngModelChange)="applyFilters()"
-              >
-                <option value="">Select a saved query</option>
-                <option value="all">All Accounts</option>
-                <option value="high-value">High Value Accounts</option>
-                <option value="positive-returns">Positive Returns</option>
-                <option value="negative-returns">Negative Returns</option>
-              </select>
-            </div>
-            
-            <button hlmBtn variant="default" class="bg-purple-primary hover:bg-purple-700 text-white">
-              Download Report
-            </button>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Summary Statistics Card -->
-      <div hlmCard class="bg-white/80 backdrop-blur rounded-lg shadow-sm p-0">
-        <div class="px-6 py-5">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-12">
-              <div>
-                <p class="text-sm text-gray-600 mb-1">Total Accounts</p>
-                <p class="text-2xl font-semibold">{{ totalAccounts }}</p>
-              </div>
-              <div class="h-12 w-px bg-gray-200"></div>
-              <div>
-                <p class="text-sm text-gray-600 mb-1">Total Market Value</p>
-                <p class="text-2xl font-semibold">${{ totalMarketValue | number:'1.2-2' }}</p>
-              </div>
-              <div class="h-12 w-px bg-gray-200"></div>
-              <div>
-                <p class="text-sm text-gray-600 mb-1">Average Return</p>
-                <p class="text-2xl font-semibold">
-                  <app-value-indicator [value]="averageReturn" [showArrow]="true"></app-value-indicator>
-                </p>
-              </div>
-            </div>
-            
-            <p class="text-sm text-gray-500">As of {{ asOfDate }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- Action Bar Widget -->
+    <app-accounts-action-bar-widget
+      [asOfDate]="asOfDate"
+      (apply)="applyFilters()"
+      (clear)="clearFilters()"
+      class="block mb-5"
+    ></app-accounts-action-bar-widget>
     
-    <!-- Accounts Table -->
-    <div hlmCard class="bg-white rounded-lg shadow-sm p-0">
-      <!-- Table Filter Bar -->
-      <div class="px-6 py-4 border-b border-gray-200 bg-gray-50/50">
-        <div class="flex items-center justify-between">
-          <p class="text-sm text-gray-600">Drag a column here to group by that column</p>
-          
-          <div class="flex items-center gap-4">
-            <div class="relative">
-              <ng-icon name="lucideSearch" size="16" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-              <input
-                hlmInput
-                type="text"
-                placeholder="Search accounts..."
-                [(ngModel)]="searchQuery"
-                (ngModelChange)="applyFilters()"
-                class="pl-10 w-64"
-              />
-            </div>
-            
-            <button hlmBtn variant="outline" size="sm" (click)="refreshData()">
-              Refresh
-            </button>
+    <!-- Summary Widget -->
+    <app-accounts-summary-widget
+      [totalMarketValue]="totalMarketValue"
+      [totalCost]="totalCost"
+      [unrealizedGL]="unrealizedGL"
+      [asOfDate]="asOfDate"
+      class="block mb-6"
+    ></app-accounts-summary-widget>
+    
+    <!-- Table Widget -->
+    <app-accounts-table-widget
+      [accounts]="accounts"
+      [columns]="columns"
+      [tableConfig]="tableConfig"
+      [selectedQuery]="selectedQuery"
+      (tabChange)="onTabChange($event)"
+      (queryChange)="selectedQuery = $event; applyFilters()"
+      (export)="exportData()"
+      (editColumns)="editColumns()"
+      (rowClick)="onRowClick($event)"
+      (actionClick)="onAction($event)"
+    >
+      <!-- Custom unrealized G/L column template -->
+      <ng-template #unrealizedGLTemplate let-row="row">
+        <div class="flex items-center justify-end gap-2">
+          <span [class.text-green-600]="row.unrealizedGLDirection === 'up'"
+                [class.text-red-600]="row.unrealizedGLDirection === 'down'">
+            {{ row.unrealizedGL | currency:'USD':'symbol':'1.2-2' }}
+          </span>
+          <div 
+            class="w-5 h-5 rounded flex items-center justify-center"
+            [ngClass]="{
+              'bg-green-100': row.unrealizedGLDirection === 'up',
+              'bg-red-100': row.unrealizedGLDirection === 'down'
+            }"
+          >
+            <ng-icon 
+              [name]="row.unrealizedGLDirection === 'up' ? 'lucideChevronUp' : 'lucideChevronDown'" 
+              size="12"
+              [class]="row.unrealizedGLDirection === 'up' ? 'text-green-600' : 'text-red-600'"
+            />
           </div>
         </div>
-      </div>
+      </ng-template>
       
-      
-      <!-- Data Table -->
-      <app-data-table
-        [data]="accounts"
-        [columns]="columns"
-        [config]="tableConfig"
-        (rowClick)="onRowClick($event)"
-        (actionClick)="onAction($event)"
-        class="accounts-table"
-      >
-        <!-- Custom unrealized G/L column template -->
-        <ng-template #unrealizedGL let-row="row">
-          <div class="flex items-center justify-between">
-            <app-value-indicator 
-              [value]="row.unrealizedGL" 
-              [format]="'currency'"
-              [showArrow]="false"
-              [isPositive]="row.unrealizedGLDirection === 'up'"
-            ></app-value-indicator>
-            <div class="flex items-center gap-1">
-              <div 
-                class="w-5 h-5 rounded flex items-center justify-center"
-                [ngClass]="{
-                  'bg-green-100': row.unrealizedGLDirection === 'up',
-                  'bg-red-100': row.unrealizedGLDirection === 'down'
-                }"
-              >
-                <ng-icon 
-                  [name]="row.unrealizedGLDirection === 'up' ? 'lucideChevronUp' : 'lucideChevronDown'" 
-                  size="12"
-                  [class]="row.unrealizedGLDirection === 'up' ? 'text-green-600' : 'text-red-600'"
-                />
-              </div>
-            </div>
-          </div>
-        </ng-template>
-        
-        <!-- Action column template -->
-        <ng-template #actions let-row="row">
-          <button 
-            hlmBtn 
-            variant="ghost" 
-            size="sm"
-            class="border-2 border-purple-primary text-purple-primary hover:bg-purple-50"
-          >
-            <ng-icon name="lucideEye" size="16" />
-          </button>
-        </ng-template>
-      </app-data-table>
-    </div>
+      <!-- Action column template -->
+      <ng-template #actions let-row="row">
+        <button 
+          hlmBtn 
+          variant="ghost" 
+          size="sm"
+          class="border border-gray-300 hover:bg-gray-50 p-1.5"
+          (click)="onAction({action: 'view', row: row}); $event.stopPropagation()"
+        >
+          <ng-icon name="lucideEye" size="16" class="text-gray-600" />
+        </button>
+      </ng-template>
+    </app-accounts-table-widget>
   </div>
 </div>

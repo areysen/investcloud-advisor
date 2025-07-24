@@ -90,7 +90,7 @@
 @layer components {
   /* Container styles for responsive max-width */
   .container-responsive {
-    @apply w-full mx-auto px-4;
+    @apply w-full mx-auto;
     
     /* Mobile: edge to edge (with small padding) */
     @media (max-width: 767px) {

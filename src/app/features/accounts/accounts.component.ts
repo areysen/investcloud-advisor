@@ -1,39 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DataTableComponent } from '../../shared/components/data-table/data-table';
 import { PageHeaderComponent } from '../../shared/components/page-header/page-header';
-import { HlmCardDirective, HlmCardHeaderDirective, HlmCardTitleDirective, HlmCardContentDirective } from '../../shared/ui/ui-card-helm/src';
 import { HlmButtonDirective } from '../../shared/ui/ui-button-helm/src';
-import { HlmInputDirective } from '../../shared/ui/ui-input-helm/src';
 import { NgIconComponent } from '@ng-icons/core';
-import { ValueIndicatorComponent } from '../../shared/components/value-indicator/value-indicator';
-import { FormsModule } from '@angular/forms';
-
-export interface Account {
-  id: string;
-  accountName: string;
-  accountNumber: string;
-  percentOfMV: number;
-  marketValue: number;
-  totalCost: number;
-  percentUnrealizedGL: number;
-  unrealizedGL: number;
-  unrealizedGLDirection: 'up' | 'down';
-}
+import { AccountsSummaryWidgetComponent } from '../../shared/components/accounts-summary-widget/accounts-summary-widget';
+import { AccountsActionBarWidgetComponent } from '../../shared/components/accounts-action-bar-widget/accounts-action-bar-widget';
+import { AccountsTableWidgetComponent, Account } from '../../shared/components/accounts-table-widget/accounts-table-widget';
 
 @Component({
   selector: 'app-accounts',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
-    DataTableComponent,
     PageHeaderComponent,
-    ValueIndicatorComponent,
-    HlmCardDirective,
     HlmButtonDirective,
-    HlmInputDirective,
-    NgIconComponent
+    NgIconComponent,
+    AccountsSummaryWidgetComponent,
+    AccountsActionBarWidgetComponent,
+    AccountsTableWidgetComponent
   ],
   templateUrl: './accounts.component.html',
   styleUrl: './accounts.component.scss'
@@ -43,10 +27,11 @@ export class AccountsComponent implements OnInit {
   selectedQuery = '';
   
   // Summary data
-  totalAccounts = 112;
-  totalMarketValue = 54476706.88;
-  averageReturn = 22.6;
+  totalMarketValue = 983843054;
+  totalCost = 944124300;
+  unrealizedGL = 38164246;
   asOfDate = '03/15/2023';
+  activeTab = 'accounts';
   
   // Table configuration
   tableConfig = {
@@ -61,11 +46,12 @@ export class AccountsComponent implements OnInit {
   columns = [
     { key: 'accountName', label: 'Account Name', type: 'text' as const, sortable: true },
     { key: 'accountNumber', label: 'Account Number', type: 'text' as const, sortable: true },
-    { key: 'percentOfMV', label: '% of MV', type: 'percent' as const, sortable: true },
-    { key: 'marketValue', label: 'Market Value', type: 'currency' as const, sortable: true },
-    { key: 'totalCost', label: 'Total Cost', type: 'currency' as const, sortable: true },
-    { key: 'percentUnrealizedGL', label: '% Unrealized G/L', type: 'percent' as const, sortable: true },
-    { key: 'unrealizedGL', label: 'Unrealized G/L', type: 'custom' as const, sortable: true }
+    { key: 'percentOfMV', label: '% of MV', type: 'percent' as const, sortable: true, align: 'right' as const },
+    { key: 'marketValue', label: 'Market Value ↓', type: 'currency' as const, sortable: true, align: 'right' as const },
+    { key: 'totalCost', label: 'Total Cost', type: 'currency' as const, sortable: true, align: 'right' as const },
+    { key: 'percentUnrealizedGL', label: '% Unrealized G/L', type: 'percent' as const, sortable: true, align: 'right' as const },
+    { key: 'unrealizedGLTemplate', label: 'Unrealized G/L', type: 'custom' as const, sortable: true, align: 'right' as const },
+    { key: 'actions', label: 'Action Center', type: 'custom' as const, sortable: false, align: 'center' as const }
   ];
   
   // Mock data matching the Figma design
@@ -204,5 +190,26 @@ export class AccountsComponent implements OnInit {
   refreshData() {
     console.log('Refreshing accounts data...');
     // Implement data refresh logic
+  }
+  
+  clearFilters() {
+    this.searchQuery = '';
+    this.selectedQuery = '';
+    this.applyFilters();
+  }
+  
+  onTabChange(tab: string) {
+    console.log('Tab changed to:', tab);
+    // Handle tab change
+  }
+  
+  exportData() {
+    console.log('Exporting data...');
+    // Implement export functionality
+  }
+  
+  editColumns() {
+    console.log('Edit columns...');
+    // Implement column editing
   }
 }
