@@ -1,0 +1,50 @@
+<div hlmCard>
+  <div hlmCardHeader>
+    <h3 hlmCardTitle>AUM by Segment</h3>
+  </div>
+
+  <div hlmCardContent class="p-0 tabs-with-border">
+    <hlm-tabs [tab]="activeTab" (tabActivated)="onTabChange($event)">
+      <hlm-tabs-list class="px-6">
+        <button hlmTabsTrigger="aum">AUM</button>
+        <button hlmTabsTrigger="mtd">MTD</button>
+        <button hlmTabsTrigger="qtd">QTD</button>
+        <button hlmTabsTrigger="ytd">YTD</button>
+      </hlm-tabs-list>
+
+      <!-- Chart Content -->
+      <div class="px-6 pt-6 pb-4">
+        <div class="chart-container" style="height: 200px">
+          <canvas #chartCanvas></canvas>
+        </div>
+      </div>
+
+      <!-- Legend -->
+      <div class="px-6 pb-6" *ngIf="getActiveTabData() as tabData">
+        <div class="space-y-2">
+          <div
+            *ngFor="let item of tabData.data"
+            class="flex items-center justify-between cursor-pointer hover:bg-gray-50 rounded px-2 py-1 transition-colors"
+            (click)="toggleSegment(item.segment)"
+            [class.opacity-50]="!isSegmentVisible(item.segment)"
+          >
+            <div class="flex items-center gap-2">
+              <span
+                class="w-3 h-3 rounded-full"
+                [style.backgroundColor]="item.color"
+              ></span>
+              <span [class.line-through]="!isSegmentVisible(item.segment)">{{
+                item.segment
+              }}</span>
+            </div>
+            <span
+              class="font-bold"
+              [class.line-through]="!isSegmentVisible(item.segment)"
+              >{{ item.displayValue }}</span
+            >
+          </div>
+        </div>
+      </div>
+    </hlm-tabs>
+  </div>
+</div>

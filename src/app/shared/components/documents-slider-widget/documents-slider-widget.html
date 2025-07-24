@@ -1,0 +1,140 @@
+<div>
+  <!-- Optional Header -->
+  <div *ngIf="title" class="flex items-center justify-between mb-4">
+    <h3 class="text-lg font-semibold">{{ title }}</h3>
+    <button
+      *ngIf="showViewAll"
+      hlmBtn
+      variant="ghost"
+      size="sm"
+      class="text-primary"
+    >
+      VIEW ALL
+    </button>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="flex items-center justify-center h-64">
+    <div class="text-muted-foreground">Loading documents...</div>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error && !loading" class="flex items-center justify-center h-64">
+    <div class="text-destructive">{{ error }}</div>
+  </div>
+
+  <!-- Carousel -->
+  <div class="p-5" *ngIf="!loading && !error && documents.length > 0">
+    <hlm-carousel
+      [options]="carouselOptions"
+      class="w-full"
+    >
+      <hlm-carousel-content class="flex gap-5 ml-0">
+      <hlm-carousel-item
+        *ngFor="let document of documents; trackBy: trackByDocumentId"
+        class="basis-[212px] min-w-[212px] max-w-[212px] flex-shrink-0 pl-0"
+      >
+        <div
+          class="cursor-pointer group flex flex-col gap-[15px]"
+          (click)="onDocumentClick(document)"
+        >
+          <!-- Thumbnail with overlay -->
+          <div class="image-overlay-container aspect-[16/9] rounded-t-lg">
+            <img
+              [src]="getThumbnailUrl(document)"
+              [alt]="document.title"
+              class="transition-transform duration-300 group-hover:scale-105"
+            />
+
+            <!-- View count overlay (top left) -->
+            <div
+              *ngIf="document.viewCount"
+              class="absolute top-3 left-3 flex items-center gap-1 bg-black/60 text-white px-2 py-1 rounded z-10"
+            >
+              <ng-icon name="lucideUsers" size="14" />
+              <span class="text-sm font-medium">{{ document.viewCount }}</span>
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div>
+            <h4
+              class="font-medium text-base mb-2 line-clamp-2 group-hover:text-primary transition-colors"
+            >
+              {{ document.title }}
+            </h4>
+
+            <p class="text-sm text-muted-foreground line-clamp-2 mb-3">
+              {{ document.description }}
+            </p>
+
+            <!-- Metadata -->
+            <div
+              class="flex items-center justify-between text-xs text-muted-foreground"
+            >
+              <div class="flex items-center gap-3">
+                <!-- Date -->
+                <span>{{ formatDate(document.publishDate) }}</span>
+
+                <!-- File size for documents -->
+                <span *ngIf="document.type === 'file' && document.fileSize">
+                  {{ document.fileSize }}
+                </span>
+
+                <!-- Read time for articles -->
+                <span *ngIf="document.type === 'article' && document.readTime">
+                  {{ document.readTime }}
+                </span>
+              </div>
+
+              <!-- Action icon -->
+              <ng-icon
+                [name]="
+                  document.type === 'file'
+                    ? 'lucideDownload'
+                    : 'lucideArrowRight'
+                "
+                size="16"
+                class="text-primary opacity-0 group-hover:opacity-100 transition-opacity"
+              />
+            </div>
+
+            <!-- Tags -->
+            <div
+              *ngIf="document.tags && document.tags.length > 0"
+              class="mt-3 flex flex-wrap gap-1"
+            >
+              <span
+                *ngFor="let tag of document.tags.slice(0, 3)"
+                hlmBadge
+                variant="outline"
+                class="text-xs px-2 py-0.5"
+              >
+                {{ tag }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </hlm-carousel-item>
+    </hlm-carousel-content>
+
+    <!-- Navigation buttons -->
+    <button hlmCarouselPrevious class="hidden lg:flex"></button>
+    <button hlmCarouselNext class="hidden lg:flex"></button>
+
+    <!-- Slide indicators -->
+    <hlm-carousel-slide-display
+      class="absolute bottom-4 left-1/2 -translate-x-1/2 lg:hidden"
+    ></hlm-carousel-slide-display>
+    </hlm-carousel>
+  </div>
+
+  <!-- Empty State -->
+  <div
+    *ngIf="!loading && !error && documents.length === 0"
+    class="flex flex-col items-center justify-center h-64 text-center"
+  >
+    <ng-icon name="lucideFile" size="48" class="text-muted-foreground mb-4" />
+    <p class="text-muted-foreground">No documents available</p>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<div hlmCard class="p-0">
+  <div class="tabs-with-border">
+    <hlm-tabs [tab]="activeTab" (tabActivated)="activeTab = $event">
+      <hlm-tabs-list class="px-6">
+        <button *ngFor="let tab of tabs" [hlmTabsTrigger]="tab.id">
+          {{ tab.label }}
+        </button>
+      </hlm-tabs-list>
+
+      <!-- Tab Content -->
+      <div *ngFor="let tab of tabs" [hlmTabsContent]="tab.id" class="p-0 m-0">
+        <app-documents-slider-widget
+          [documents]="tab.documents"
+          [title]="''"
+          [loading]="tab.loading"
+          (documentClick)="onDocumentClick($event, tab.id)"
+          class="tab-content-slider"
+        >
+        </app-documents-slider-widget>
+      </div>
+    </hlm-tabs>
+  </div>
+</div>

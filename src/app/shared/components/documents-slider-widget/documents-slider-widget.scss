@@ -1,0 +1,12 @@
+// Custom positioning for carousel navigation buttons
+hlm-carousel {
+  button[hlmCarouselPrevious],
+  button[hlmCarouselNext] {
+    // Override default top positioning to center on image
+    // With fixed width of 212px and 16:9 aspect ratio
+    // Image height = 212px * (9/16) = 119.25px
+    // Center = 119.25px / 2 ≈ 60px
+    top: 60px !important;
+    transform: translateY(-50%);
+  }
+}

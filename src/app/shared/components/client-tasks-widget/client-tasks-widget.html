@@ -1,0 +1,24 @@
+<div hlmCard>
+  <div hlmCardHeader class="flex items-center justify-between border-b">
+    <h3 hlmCardTitle>Clients Tasks</h3>
+  </div>
+
+  <div hlmCardContent class="p-0">
+    <app-data-table
+      [data]="clientTasks"
+      [columns]="columns"
+      [config]="tableConfig"
+      (rowClick)="onRowClick($event)"
+    ></app-data-table>
+
+    <div class="px-6 pb-5 pt-4 flex justify-center">
+      <button
+        hlmBtn
+        variant="outline"
+        (click)="onViewAll()"
+      >
+        VIEW ALL
+      </button>
+    </div>
+  </div>
+</div>

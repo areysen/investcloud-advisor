@@ -1,0 +1,7 @@
+// Badge overrides for notification indicators
+[hlmBadge] {
+  // Override for notification badges specifically
+  &.notification-badge {
+    @apply rounded-[20px] px-1 min-w-[15px] w-auto -right-0.5;
+  }
+}

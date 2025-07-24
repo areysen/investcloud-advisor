@@ -1,0 +1,107 @@
+<div hlmCard>
+  <div hlmCardHeader class="flex items-center justify-between border-b">
+    <div class="flex items-center gap-2">
+      <h3 hlmCardTitle>Opportunities</h3>
+      <ng-icon name="lucideChevronRight" size="20" class="text-neutral-500" />
+    </div>
+    <div class="flex items-center gap-4">
+      <select
+        class="px-3 py-1.5 text-sm border border-neutral-200 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-primary"
+        [(ngModel)]="selectedGrouping"
+        (change)="onGroupingChange($any($event.target).value)"
+      >
+        <option *ngFor="let option of groupingOptions" [value]="option.value">
+          {{ option.label }} ▼
+        </option>
+      </select>
+      <button
+        class="text-sm text-primary hover:text-primary-hover transition-colors cursor-pointer flex items-center gap-1"
+        (click)="onEditColumns()"
+      >
+        <ng-icon name="lucidePencil" size="14" />
+        Edit Columns
+      </button>
+    </div>
+  </div>
+
+  <div hlmCardContent class="p-0">
+    <!-- Table Header -->
+    <div class="grid grid-cols-5 gap-4 px-6 py-3 bg-[#F9FAFC] text-sm font-semibold text-neutral-700 border-b border-neutral-80">
+      <div class="flex items-center gap-1">
+        Opportunity
+        <ng-icon name="lucideSearch" size="14" class="text-neutral-400" />
+      </div>
+      <div class="flex items-center gap-1">
+        Primary Contact
+        <ng-icon name="lucideSearch" size="14" class="text-neutral-400" />
+      </div>
+      <div class="flex items-center gap-1">
+        Stage
+        <ng-icon name="lucideSearch" size="14" class="text-neutral-400" />
+      </div>
+      <div class="flex items-center gap-1">
+        Completion Date
+        <ng-icon name="lucideCalendar" size="14" class="text-neutral-400" />
+      </div>
+      <div class="flex items-center gap-1">
+        Next Action
+        <ng-icon name="lucideSearch" size="14" class="text-neutral-400" />
+      </div>
+    </div>
+
+    <!-- Grouped Data -->
+    <div class="max-h-[400px] overflow-y-auto">
+      <div *ngFor="let group of groupedOpportunities" class="border-b border-neutral-80 last:border-b-0">
+        <!-- Group Header -->
+        <div class="px-6 py-2 bg-neutral-50 flex items-center gap-2 cursor-pointer hover:bg-neutral-100">
+          <ng-icon name="lucideChevronDown" size="16" class="text-neutral-600" />
+          <span class="text-sm font-semibold text-neutral-700">{{ group[0] }}</span>
+        </div>
+
+        <!-- Group Items -->
+        <div *ngFor="let opp of group[1]" 
+             class="grid grid-cols-5 gap-4 px-6 py-3 text-sm hover:bg-neutral-50 cursor-pointer border-b border-neutral-80 last:border-b-0"
+             (click)="onRowClick(opp)">
+          <div>{{ opp.opportunity }}</div>
+          <div>{{ opp.primaryContact }}</div>
+          <div>
+            <span 
+              hlmBadge
+              [class.bg-green-100]="opp.stage === 'Won'"
+              [class.text-green-700]="opp.stage === 'Won'"
+              [class.bg-blue-100]="opp.stage === 'Active'"
+              [class.text-blue-700]="opp.stage === 'Active'"
+              [class.bg-red-100]="opp.stage === 'Lost'"
+              [class.text-red-700]="opp.stage === 'Lost'"
+              class="px-3 py-1 text-xs font-medium rounded-full"
+            >
+              <span class="inline-block w-2 h-2 rounded-full mr-1.5"
+                    [class.bg-green-500]="opp.stage === 'Won'"
+                    [class.bg-blue-500]="opp.stage === 'Active'"
+                    [class.bg-red-500]="opp.stage === 'Lost'">
+              </span>
+              {{ opp.stage }}
+            </span>
+          </div>
+          <div>{{ opp.completionDate }}</div>
+          <div>{{ opp.nextAction }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="px-6 py-3 border-t flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <button class="p-1.5 text-neutral-600 hover:text-neutral-900">
+          <ng-icon name="lucideChevronLeft" size="16" />
+        </button>
+        <span class="px-3 py-1 text-sm font-medium">1</span>
+        <span class="px-3 py-1 text-sm text-neutral-600 cursor-pointer hover:text-neutral-900">2</span>
+        <span class="px-3 py-1 text-sm text-neutral-600 cursor-pointer hover:text-neutral-900">3</span>
+        <button class="p-1.5 text-neutral-600 hover:text-neutral-900">
+          <ng-icon name="lucideChevronRight" size="16" />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

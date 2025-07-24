@@ -1,0 +1,53 @@
+:host {
+  display: block;
+}
+
+// Custom styles for the accounts table
+::ng-deep .accounts-table {
+  .data-table {
+    // Remove default header since we have custom filters
+    thead {
+      display: none;
+    }
+    
+    // Alternating row colors
+    tbody tr {
+      &:nth-child(even) {
+        background-color: #f9fafb;
+      }
+      
+      &:hover {
+        background-color: #f3f4f6;
+      }
+    }
+    
+    // Align numeric columns to the right
+    td:nth-child(3),
+    td:nth-child(4),
+    td:nth-child(5),
+    td:nth-child(6),
+    td:nth-child(7) {
+      text-align: right;
+    }
+    
+    // Style account name column (make it purple)
+    td:first-child {
+      color: #6a3460;
+      font-weight: 500;
+    }
+  }
+  
+  // Hide default pagination if we're using custom
+  .pagination-container {
+    display: none;
+  }
+}
+
+// Purple primary button override
+.bg-purple-primary {
+  background-color: #6a3460;
+  
+  &:hover {
+    background-color: #5a2850;
+  }
+}
