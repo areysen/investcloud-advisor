@@ -37,6 +37,7 @@
     "@spartan-ng/ui-core": "^0.0.1-alpha.380",
     "@types/lodash": "^4.17.20",
     "chart.js": "^4.5.0",
+    "chartjs-plugin-datalabels": "^2.2.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
